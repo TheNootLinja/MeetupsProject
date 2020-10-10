@@ -20,5 +20,5 @@
 </style>
 
 <header>
-  <h1>Popular Nerd</h1>
+  <h1>Meetups</h1>
 </header>
