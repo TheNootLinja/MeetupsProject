@@ -31,26 +31,12 @@
   //     isFavorite: false,
   //   },
 
-  function addMeetup(event) {
-    let meetupData = {
-      title: event.detail.title,
-      subtitle: event.detail.subtitle,
-      description: event.detail.description,
-      image: event.detail.imageUrl,
-      address: event.detail.address,
-      contactEmail: event.detail.email,
-    };
-    meetups.addMeetup(meetupData);
+  function addMeetup() {
     editMode = null;
   }
 
   function closeModal() {
     editMode = null;
-  }
-  function toggleFavorite(event) {
-    // getting the id of them item that we passed through our event propagation
-    const id = event.detail;
-    meetups.toggleFavorite(id);
   }
 </script>
 
@@ -73,5 +59,5 @@
   {#if editMode === 'add'}
     <EditMeetup on:save={addMeetup} on:closemodal={closeModal} />
   {/if}
-  <MeetupGrid meetups={$meetups} on:togglefavorite={toggleFavorite} />
+  <MeetupGrid meetups={$meetups} />
 </main>
