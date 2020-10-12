@@ -1,4 +1,5 @@
 <script>
+  import meetups from "./meetups-store";
   import { createEventDispatcher } from "svelte";
   import TextInput from "../UI/TextInput.svelte";
   import Button from "../UI/Button.svelte";
@@ -32,19 +33,34 @@
 
   // Function for submitting the new meetup form
   function submitForm() {
-    dispatch("save", {
+    const meetupData = {
       title: title,
       subtitle: subtitle,
       address: address,
       imageUrl: imageUrl,
       email: email,
       description: description,
-    });
+    };
+    meetups.addMeetup(meetupData);
+    dispatch("save");
   }
 
   // Function for closing the modal
   function closeModal() {
     dispatch("closemodal");
+
+    //   function addMeetup(event) {
+    //   let meetupData = {
+    //     title: event.detail.title,
+    //     subtitle: event.detail.subtitle,
+    //     description: event.detail.description,
+    //     image: event.detail.imageUrl,
+    //     address: event.detail.address,
+    //     contactEmail: event.detail.email,
+    //   };
+    //   meetups.addMeetup(meetupData);
+    //   editMode = null;
+    // }
   }
 </script>
 
