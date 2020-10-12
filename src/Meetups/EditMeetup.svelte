@@ -48,20 +48,15 @@
   // Function for closing the modal
   function closeModal() {
     dispatch("closemodal");
-
-    //   function addMeetup(event) {
-    //   let meetupData = {
-    //     title: event.detail.title,
-    //     subtitle: event.detail.subtitle,
-    //     description: event.detail.description,
-    //     image: event.detail.imageUrl,
-    //     address: event.detail.address,
-    //     contactEmail: event.detail.email,
-    //   };
-    //   meetups.addMeetup(meetupData);
-    //   editMode = null;
-    // }
   }
+
+  document.onkeydown = function (event) {
+    if (event.key === "Enter") {
+      submitForm();
+    } else if (event.key === "Escape") {
+      closeModal();
+    }
+  };
 </script>
 
 <style>

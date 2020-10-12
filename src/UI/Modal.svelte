@@ -1,5 +1,4 @@
 <script>
-  import Button from "./Button.svelte";
   import { createEventDispatcher } from "svelte";
 
   export let title;
