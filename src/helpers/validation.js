@@ -3,6 +3,7 @@
 // Validation function to check and make sure the
 // string it is passed isn't empty
 export function notEmpty(val) {
+    console.log(val);
     return val.trim().length > 0;
 }
 

@@ -36,6 +36,20 @@ const customerMeetupsStore = {
             return [newMeetup, ...items]
         });
     },
+    updateMeetup: (id, meetupData) => {
+      meetups.update(items => {
+        // Finding the index of the meetup we want to update
+        const meetupIndex = items.findIndex(i => i.id === id);
+        // Putting the data of the meetup we are editing into updatedMeetup
+        const updatedMeetup = {...items[meetupIndex], ...meetupData}
+        // Creating a new array of all of the old meetups
+        const updatedMeetups = [...items];
+        // Replacing the meetup with the new data using the meetupIndex again
+        updatedMeetups[meetupIndex] = updatedMeetup;
+        // Returning the updatedMeetups array which svelte will use to overwrite it.
+        return updatedMeetups;
+      })
+    },
     toggleFavorite: (id) => {
         meetups.update(items => {
                 // Grabbing the item that will be updated by matching the id variable to the
@@ -54,7 +68,12 @@ const customerMeetupsStore = {
       updatedMeetups[meetupIndex] = updatedMeetup;
       return updatedMeetups;
         });
-    }
+    },
+    deleteMeetup: (id) => {
+      meetups.update(items => {
+        return items.filter(i => i.id !== id);
+      })
+    },
 };
 
 export default customerMeetupsStore;

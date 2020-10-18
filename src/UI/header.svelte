@@ -5,7 +5,7 @@
     top: 0;
     left: 0;
     height: 4rem;
-    background: #008cff;
+    background:#00c3ff;
     display: flex;
     justify-content: center;
     align-items: center;
