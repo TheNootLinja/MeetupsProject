@@ -1,5 +1,4 @@
 <script>
-  export let buttonText = "";
   export let type = "button";
   export let href = null;
   export let mode = null;

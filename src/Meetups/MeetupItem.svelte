@@ -1,4 +1,6 @@
 <script>
+  import { fade, fly, slide, scale } from "svelte/transition";
+  import { flip } from "svelte/animate";
   import { createEventDispatcher } from "svelte";
   import meetups from "./meetups-store.js";
   import Button from "../UI/Button.svelte";
