@@ -5,12 +5,14 @@
   import EditMeetup from "./Meetups/EditMeetup.svelte";
   import MeetupDetails from "./Meetups/MeetupDetails.svelte";
   import LoadingSpinner from "./UI/LoadingSpinner.svelte";
+  import ErrorModal from "./UI/Error.svelte";
 
   let editMode;
   let editedId;
   let page = "overview";
   let pageData = {};
   let isLoading = true;
+  let error;
 
   // Pinging the firebase database with a fetch request.
   // By default this is a get so no config needed.
@@ -35,14 +37,13 @@
           id: key,
         });
       }
-      setTimeout(() => {
-        isLoading = false;
-        meetups.setMeetups(loadedMeetups);
-      }, 1000);
+      isLoading = false;
+      meetups.setMeetups(loadedMeetups.reverse());
     })
     .catch((err) => {
       console.log(err);
       isLoading = false;
+      error = err;
     });
 
   function savedMeetup() {
@@ -69,6 +70,10 @@
     editMode = "edit";
     editedId = event.detail;
   }
+
+  function clearError() {
+    error = "";
+  }
 </script>
 
 <style>
@@ -77,6 +82,9 @@
   }
 </style>
 
+{#if error}
+  <ErrorModal errMess={error.message} on:closemodal={clearError} />
+{/if}
 <Header />
 
 <main>

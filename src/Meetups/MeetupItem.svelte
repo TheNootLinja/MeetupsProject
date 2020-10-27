@@ -5,6 +5,7 @@
   import meetups from "./meetups-store.js";
   import Button from "../UI/Button.svelte";
   import Badge from "../UI/Badge.svelte";
+  import LoadingSpinner from "../UI/LoadingSpinner.svelte";
 
   export let id;
   export let title;
@@ -15,9 +16,27 @@
   export let email;
   export let isFav;
 
+  let isLoading = false;
+
   const dispatch = createEventDispatcher();
 
   function togglefavorite() {
+    isLoading = true;
+    fetch(`https://svelte-course-e7a24.firebaseio.com/meetups/${id}.json`, {
+      method: "PATCH",
+      body: JSON.stringify({ isFavorite: !isFav }),
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("An error occured. Please try again!");
+        }
+      })
+      .catch((err) => {
+        isLoading = false;
+        console.log(err);
+      });
+    isLoading = false;
     meetups.toggleFavorite(id);
   }
 </script>
@@ -101,12 +120,16 @@
     </Button>
     <!-- Need to remember to use turnaries like in the below example
     of the button text being set dynamically -->
-    <Button
-      mode="outline"
-      color={isFav ? null : 'success'}
-      on:click={togglefavorite}>
-      {isFav ? 'Unfavorite' : 'Favorite'}
-    </Button>
+    {#if isLoading}
+      <p>Working...</p>
+    {:else}
+      <Button
+        mode="outline"
+        color={isFav ? null : 'success'}
+        on:click={togglefavorite}>
+        {isFav ? 'Unfavorite' : 'Favorite'}
+      </Button>
+    {/if}
     <Button on:click={() => dispatch('showdetails', id)}>Show Details</Button>
   </footer>
 </article>

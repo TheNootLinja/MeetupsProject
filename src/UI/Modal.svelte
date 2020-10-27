@@ -1,6 +1,7 @@
 <script>
   import { fly, fade } from "svelte/transition";
   import { createEventDispatcher } from "svelte";
+  import Button from "./Button.svelte";
 
   export let title;
 
@@ -65,4 +66,7 @@
     <slot />
   </div>
   <footer />
+  <slot name="footer">
+    <Button on:click={closeModal}>Close</Button>
+  </slot>
 </div>

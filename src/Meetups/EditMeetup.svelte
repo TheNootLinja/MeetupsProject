@@ -56,7 +56,21 @@
       description: description,
     };
     if (id) {
-      meetups.updateMeetup(id, meetupData);
+      // Don't forget to put the . back in the url before com
+      fetch(`https://svelte-course-e7a24.firebaseio.com/meetups/${id}.json`, {
+        method: "PATCH",
+        body: JSON.stringify(meetupData),
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error("An error occured, please try again");
+          }
+          meetups.updateMeetup(id, meetupData);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } else {
       fetch("https://svelte-course-e7a24.firebaseio.com/meetups.json", {
         method: "POST",
@@ -84,7 +98,18 @@
   }
 
   function deleteMeetup() {
-    meetups.deleteMeetup(id);
+    fetch(`https://svelte-course-e7a24.firebaseio.com/meetups/${id}.json`, {
+      method: "DELETE",
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("An error has occured. Please try again!");
+        }
+        meetups.deleteMeetup(id);
+      })
+      .catch((err) => {
+        alert(err);
+      });
     dispatch("closemodal");
   }
 
