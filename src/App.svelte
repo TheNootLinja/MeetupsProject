@@ -1,6 +1,6 @@
 <script>
   import meetups from "./Meetups/meetups-store.js";
-  import Header from "./UI/header.svelte";
+  import Header from "./UI/Header.svelte";
   import MeetupGrid from "./Meetups/MeetupGrid.svelte";
   import EditMeetup from "./Meetups/EditMeetup.svelte";
   import MeetupDetails from "./Meetups/MeetupDetails.svelte";
